@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0b1121;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: white;
+}
+
+main {
+    min-height: 100vh; /* 100vh berarti 100% tinggi layar saat ini */
+    display: flex;
+    justify-content: center; /* Kanan Kiri */
+    align-items: center; /* Atas bawah */
+    padding: 20px; /* Jarak aman agar kotak tidak menempel di ujung layar HP */
+}
+
+.hero-section {
+    padding: 40px;
+    max-width: 650px; /* Mengurangi max-width agar teks tidak terlalu melebar */
+    width: 100%;
+    text-align: center;
+    background-color: #0f172a; 
+    color: #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px;
+}
+
+.badge {
+    display: inline-block;
+    background-color: rgba(6, 182, 212, 0.1);
+    color: #22d3ee;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+}
+
+.dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: #22d3ee;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+}
+
+.highlight {
+    background: linear-gradient(to right, #22d3ee, #34d399); /* Gradasi */
+    -webkit-background-clip: text; /* Memotong background mengikuti teks */
+    background-clip: text;
+    color: transparent; /* Membuat warna asli teks transparan */
+}
+
+p {
+    color: #9ca3af;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+/* Explore Projects button */
+
+.btn {
+    display: inline-block;
+    background: linear-gradient(to right, #22d3ee, #34d399);
+    color: #111827;
+    padding: 12px 24px;
+    border-radius: 24px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
