@@ -1,2 +1,2 @@
 # Cities-on-Focus
-Independent WebGIS portfolio exploring spatial analysis, remote sensing, and urban dynamics.
+An interactive WebGIS platform dedicated to exploring urban dynamics, spatial analysis, and remote sensing.
