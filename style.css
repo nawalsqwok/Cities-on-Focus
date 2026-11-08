@@ -12,6 +12,13 @@ main {
     justify-content: center; /* Kanan Kiri */
     align-items: center; /* Atas bawah */
     padding: 20px; /* Jarak aman agar kotak tidak menempel di ujung layar HP */
+    background: 
+        linear-gradient(rgba(11, 17, 32, 0.75), rgba(11, 17, 32, 0.75)), 
+        url('images/cities.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
 }
 
 .hero-section {
