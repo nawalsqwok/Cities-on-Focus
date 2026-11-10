@@ -1,3 +1,22 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    border-bottom: 1px solid var(--color-border);
+    background: rgb(2, 8, 23);
+    backdrop-filter: blur(14px);
+}
+
+.brand-logo {
+    width: 150px;
+    padding-left: 25px;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -7,11 +26,15 @@ body {
 }
 
 main {
-    min-height: 100vh; /* 100vh berarti 100% tinggi layar saat ini */
+    width: 100%;
+}
+
+.hero-section {
+    in-height: 100vh; /* 100vh berarti 100% tinggi layar saat ini */
     display: flex;
     justify-content: center; /* Kanan Kiri */
     align-items: center; /* Atas bawah */
-    padding: 20px; /* Jarak aman agar kotak tidak menempel di ujung layar HP */
+    padding: 80px; /* Jarak aman agar kotak tidak menempel di ujung layar HP */
     background: 
         linear-gradient(rgba(11, 17, 32, 0.75), rgba(11, 17, 32, 0.75)), 
         url('images/cities.jpg');
@@ -21,15 +44,15 @@ main {
         background-attachment: fixed;
 }
 
-.hero-section {
-    padding: 40px;
-    max-width: 650px; /* Mengurangi max-width agar teks tidak terlalu melebar */
+.hero-content {
+    padding: 30px;
+    max-width: 500px; 
     width: 100%;
     text-align: center;
-    background-color: #0f172a; 
+    background-color: rgba(15, 23, 42, 0.9); /* Kotak gelap transparan */
     color: #e2e8f0;
     border-radius: 16px;
-    box-shadow: 0 4px 6px;
+    box-shadow: 0 4px 17px rgba(99, 186, 245, 0.3);
 }
 
 .badge {
@@ -39,7 +62,7 @@ main {
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.05em;
     margin-bottom: 20px;
 }
@@ -61,7 +84,7 @@ h1 {
 }
 
 .highlight {
-    background: linear-gradient(to right, #22d3ee, #34d399); /* Gradasi */
+    background: linear-gradient(to right, #22d3ee, #d4e1dc); /* Gradasi */
     -webkit-background-clip: text; /* Memotong background mengikuti teks */
     background-clip: text;
     color: transparent; /* Membuat warna asli teks transparan */
@@ -78,9 +101,9 @@ p {
 
 .btn {
     display: inline-block;
-    background: linear-gradient(to right, #22d3ee, #34d399);
+    background: linear-gradient(to right, #1bd5f2, #34d399);
     color: #111827;
-    padding: 12px 24px;
+    padding: 10px 15px;
     border-radius: 24px;
     text-decoration: none;
     font-weight: 600;
@@ -90,4 +113,13 @@ p {
 
 .btn:hover {
     opacity: 0.9;
+}
+
+.projects-section {
+    min-height: 90vh; /* Agar tingginya juga satu layar penuh saat di-scroll */
+    background-color: #0b1121; /* Warna background polos gelap untuk section ini */
+    backdrop-filter: blur(14px);
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
 }
