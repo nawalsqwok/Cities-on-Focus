@@ -120,6 +120,7 @@ p {
     background-color: #0b1121; /* Warna background polos gelap untuk section ini */
     backdrop-filter: blur(14px);
     display: flex;
+    padding-left: 40px;
     flex-direction: column;
     align-items: baseline;
 }
