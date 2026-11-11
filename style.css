@@ -30,7 +30,7 @@ main {
 }
 
 .hero-section {
-    in-height: 100vh; /* 100vh berarti 100% tinggi layar saat ini */
+    /* min-height: 100vh; 100vh berarti 100% tinggi layar saat ini */
     display: flex;
     justify-content: center; /* Kanan Kiri */
     align-items: center; /* Atas bawah */
