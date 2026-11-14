@@ -124,3 +124,121 @@ p {
     flex-direction: column;
     align-items: baseline;
 }
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 360px;
+}
+
+.project-card {
+    background-color: #041437;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(34, 211, 238, 0.4); /* Efek garis tepi menyala saat kursor mendekat */
+}
+
+.card-image {
+    width: 100%;
+    height: 140px;
+    background-color: #1e293b;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Khusus Placeholder untuk Card Coming Soon */
+.placeholder-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #64748b;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+}
+
+/* Konten Teks di dalam Card */
+.card-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* Label Kategori / Badge kecil */
+.card-tag {
+    display: inline-block;
+    background-color: rgba(6, 182, 212, 0.1);
+    color: #22d3ee;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    align-self: flex-start;
+}
+
+.card-tag-soon {
+    display: inline-block;
+    background-color: rgba(148, 163, 184, 0.1);
+    color: #94a3b8;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    align-self: flex-start;
+}
+
+.card-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #ffffff;
+}
+
+.card-content p {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+/* Tombol Link dalam Card */
+.card-btn {
+    color: #22d3ee;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.card-btn:hover {
+    color: #34d399;
+}
+
+/* Teks untuk status Coming Soon */
+.disabled-btn {
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: not-allowed;
+}
