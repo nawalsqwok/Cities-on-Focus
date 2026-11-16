@@ -128,6 +128,7 @@ p {
 
 .projects-section {
     /* min-height: 100vh; */
+    scroll-margin-top: 60px;
     background-color: #ffffff; /* Warna background polos gelap untuk section ini */
     backdrop-filter: blur(14px);
     display: flex;
