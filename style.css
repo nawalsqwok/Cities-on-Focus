@@ -30,13 +30,13 @@ main {
 }
 
 .hero-section {
-    min-height: 60vh;
+    min-height: 70vh;
     display: flex;
     justify-content: center; /* Kanan Kiri */
     align-items: center; /* Atas bawah */
     padding: 80px; /* Jarak aman agar kotak tidak menempel di ujung layar HP */
     background: 
-        linear-gradient(rgba(11, 17, 32, 0.75), rgba(11, 17, 32, 0.75)), 
+        linear-gradient(rgba(255, 255, 255, 0.75), rgba(240, 241, 246, 0.75)), 
         url('images/cities.jpg');
         background-size: cover;
         background-position: center;
@@ -49,16 +49,16 @@ main {
     max-width: 470px; 
     width: 100%;
     text-align: center;
-    background-color: rgba(15, 23, 42, 0.9); /* Kotak gelap transparan */
-    color: #e2e8f0;
+    background-color: rgba(255, 255, 255, 0.9); /* Kotak gelap transparan */
+    color: #000000;
     border-radius: 16px;
-    box-shadow: 0 4px 17px rgba(99, 186, 245, 0.3);
+    box-shadow: 0 4px 17px rgba(245, 178, 96, 0.486);
 }
 
 .badge {
     display: inline-block;
     background-color: rgba(6, 182, 212, 0.1);
-    color: #22d3ee;
+    color: rgb(255, 132, 0);
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.75rem;
@@ -71,7 +71,7 @@ main {
     display: inline-block;
     width: 6px;
     height: 6px;
-    background-color: #22d3ee;
+    background-color: rgb(255, 132, 0);
     border-radius: 50%;
     margin-right: 5px;
     vertical-align: middle;
@@ -83,11 +83,15 @@ h1 {
     margin: 0 0 16px 0;
 }
 
+h2 {
+    color: #041437;
+}
+
 .highlight {
-    background: linear-gradient(to right, #22d3ee, #d4e1dc); /* Gradasi */
+    /* background: linear-gradient(to right, rgb(255, 132, 0), #e8ec09); Gradasi */
     -webkit-background-clip: text; /* Memotong background mengikuti teks */
     background-clip: text;
-    color: transparent; /* Membuat warna asli teks transparan */
+    color: rgb(255, 132, 0);
 }
 
 p {
@@ -97,11 +101,18 @@ p {
     margin-bottom: 30px;
 }
 
+.desc-proiects {
+    color: #041437;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
 /* Explore Projects button */
 
 .btn {
     display: inline-block;
-    background: linear-gradient(to right, #1bd5f2, #34d399);
+    background: rgb(255, 132, 0);
     color: #111827;
     padding: 10px 15px;
     border-radius: 24px;
@@ -116,8 +127,8 @@ p {
 }
 
 .projects-section {
-    min-height: 90vh; /* Agar tingginya juga satu layar penuh saat di-scroll */
-    background-color: #0b1121; /* Warna background polos gelap untuk section ini */
+    /* min-height: 100vh; */
+    background-color: #ffffff; /* Warna background polos gelap untuk section ini */
     backdrop-filter: blur(14px);
     display: flex;
     padding-left: 40px;
@@ -134,11 +145,13 @@ p {
 }
 
 .project-card {
-    background-color: #041437;
+    background-color: #ffffff;
+    padding: 0px;
+    margin-bottom: 20px;
     border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 0.5px solid rgba(0, 0, 0, 0.286);
+    /* box-shadow: 0 5px 5px rgb(255, 132, 0); */
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, border-color 0.3s ease;
@@ -146,7 +159,7 @@ p {
 
 .project-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(34, 211, 238, 0.4); /* Efek garis tepi menyala saat kursor mendekat */
+    border-color: rgb(255, 132, 0, 0.4); /* Efek garis tepi menyala saat kursor mendekat */
 }
 
 .card-image {
@@ -176,7 +189,7 @@ p {
 
 /* Konten Teks di dalam Card */
 .card-content {
-    padding: 24px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -186,16 +199,15 @@ p {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 10px;
 }
 
 /* Label/tag individu */
 .card-tag {
-    background-color: rgba(6, 182, 212, 0.1);
-    color: #22d3ee;
+    background-color: rgb(255, 132, 0);
+    color: #000000;
     padding: 4px 10px;
     border-radius: 20px;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     font-weight: 600;
 }
 
@@ -214,8 +226,9 @@ p {
 .card-content h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    margin: 0 0 10px 0;
-    color: #ffffff;
+    margin: 0 10 0px 0;
+    padding: 0 0px 0;
+    color: #000000;
 }
 
 .card-content p {
@@ -228,7 +241,7 @@ p {
 
 /* Tombol Link dalam Card */
 .card-btn {
-    color: #22d3ee;
+    color: rgb(255, 132, 0);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
