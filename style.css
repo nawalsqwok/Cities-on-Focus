@@ -242,7 +242,7 @@ p {
 
 /* Tombol Link dalam Card */
 .card-btn {
-    color: rgb(255, 132, 0);
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
@@ -250,7 +250,7 @@ p {
 }
 
 .card-btn:hover {
-    color: #34d399;
+    color: rgb(255, 132, 0);
 }
 
 /* Teks untuk status Coming Soon */
