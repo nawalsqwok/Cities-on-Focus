@@ -36,7 +36,7 @@ main {
     align-items: center; /* Atas bawah */
     padding: 80px; /* Jarak aman agar kotak tidak menempel di ujung layar HP */
     background: 
-        linear-gradient(rgba(255, 255, 255, 0.75), rgba(240, 241, 246, 0.75)), 
+        linear-gradient(rgba(255, 255, 255, 0), rgba(240, 241, 246, 0.75)), 
         url('images/cities.jpg');
         background-size: cover;
         background-position: center;
