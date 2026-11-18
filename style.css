@@ -260,3 +260,10 @@ p {
     font-size: 0.9rem;
     cursor: not-allowed;
 }
+
+.title-map {
+    color: #fffdfd;
+    font-size: medium;
+    padding-top: 20px;
+    padding-left: 45px;
+}
