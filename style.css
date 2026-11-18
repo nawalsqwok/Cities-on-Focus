@@ -62,8 +62,12 @@ main {
     min-height: 70vh;
     display: flex;
     justify-content: center; /* Kanan Kiri */
-    align-items: center; /* Atas bawah */
-    padding: 80px; /* Jarak aman agar kotak tidak menempel di ujung layar HP */
+    align-items: flex-start; 
+    padding-top: 90px;      /* Atur jarak jarak atasnya di sini (bisa ditambah/dikurangi) */
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-bottom: 160px;
+    position: relative;
     background: 
         linear-gradient(rgba(255, 255, 255, 0), rgba(240, 241, 246, 0.75)), 
         url('images/cities.jpg');
@@ -71,6 +75,18 @@ main {
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
+}
+
+.hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; /* Tinggi area efek awan/gradasi */
+    /* Gradasi dari transparan ke warna putih solid (#ffffff) */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
+    pointer-events: none; /* Agar tidak mengganggu kursor saat klik tombol */
 }
 
 .hero-content {
