@@ -1,3 +1,9 @@
+:root {
+    --color-primary: rgb(255, 132, 0);          /* Warna oranye utama */
+    --color-text-muted: #9ca3af;                /* Warna teks abu-abu redup */
+    --color-border: rgba(255, 255, 255, 0.1);   /* Warna border tipis */
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -6,7 +12,6 @@ html {
     position: sticky;
     top: 0;
     z-index: 1000;
-
     border-bottom: 1px solid var(--color-border);
     background: rgb(2, 8, 23);
     backdrop-filter: blur(14px);
@@ -15,6 +20,31 @@ html {
 .brand-logo {
     width: 150px;
     padding-left: 100px;
+}
+
+.site-navigation {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between; /* Membuat jarak di antara logo (kiri) dan menu (kanan) */
+    align-items: center;          /* Menjajarkan logo dan menu agar sejajar secara vertikal di tengah */
+    padding: 6px 100px;
+}
+
+.navigation-links {
+    display: flex;
+    gap: 20px; /* Jarak antar menu (About, Case Studies, Contact) */
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+    text-decoration: none;
+}
+
+.nav-link:hover,
+.nav-link[aria-current="page"] {
+    color: var(--color-primary);
 }
 
 body {
@@ -130,16 +160,15 @@ p {
     /* min-height: 100vh; */
     scroll-margin-top: 60px;
     background-color: #ffffff; /* Warna background polos gelap untuk section ini */
-    backdrop-filter: blur(14px);
     display: flex;
-    padding-left: 100px;
+    padding: 0 100px;
     flex-direction: column;
     align-items: baseline;
 }
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
     gap: 30px;
     width: 100%;
     max-width: 360px;
@@ -227,8 +256,7 @@ p {
 .card-content h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    margin: 0 10 0px 0;
-    padding: 0 0px 0;
+    margin: 0 0 10px 0;
     color: #000000;
 }
 
@@ -266,4 +294,5 @@ p {
     font-size: medium;
     padding-top: 20px;
     padding-left: 100px;
+    padding-right: 100px;
 }
