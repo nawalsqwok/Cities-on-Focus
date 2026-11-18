@@ -1,7 +1,7 @@
 :root {
     --color-primary: rgb(255, 132, 0);          /* Warna oranye utama */
     --color-text-muted: #9ca3af;                /* Warna teks abu-abu redup */
-    --color-border: rgba(255, 255, 255, 0.1);   /* Warna border tipis */
+    --color-border: rgba(244, 143, 65, 0.588);   /* Warna border tipis */
 }
 
 html {
@@ -189,7 +189,7 @@ p {
 
 .project-card:hover {
     transform: translateY(-5px);
-    border-color: rgb(255, 132, 0, 0.4); /* Efek garis tepi menyala saat kursor mendekat */
+    border-color: var(--color-border); /* Efek garis tepi menyala saat kursor mendekat */
 }
 
 .card-image {
@@ -278,7 +278,7 @@ p {
 }
 
 .card-btn:hover {
-    color: rgb(255, 132, 0);
+    color: var(--color-primary);
 }
 
 /* Teks untuk status Coming Soon */
