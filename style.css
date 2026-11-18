@@ -14,7 +14,7 @@ html {
 
 .brand-logo {
     width: 150px;
-    padding-left: 25px;
+    padding-left: 100px;
 }
 
 body {
@@ -132,7 +132,7 @@ p {
     background-color: #ffffff; /* Warna background polos gelap untuk section ini */
     backdrop-filter: blur(14px);
     display: flex;
-    padding-left: 40px;
+    padding-left: 100px;
     flex-direction: column;
     align-items: baseline;
 }
@@ -265,5 +265,5 @@ p {
     color: #fffdfd;
     font-size: medium;
     padding-top: 20px;
-    padding-left: 45px;
+    padding-left: 100px;
 }
