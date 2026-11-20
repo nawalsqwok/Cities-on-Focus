@@ -1,7 +1,8 @@
 :root {
     --color-primary: rgb(255, 132, 0);          /* Warna oranye utama */
-    --color-text-muted: #9ca3af;                /* Warna teks abu-abu redup */
+    --color-text-muted: rgba(0, 0, 0, 0.659);                /* Warna teks abu-abu redup */
     --color-border: rgba(244, 143, 65, 0.588);   /* Warna border tipis */
+    --color-secondary:  rgba(0, 0, 0, 0.773);
 }
 
 html {
@@ -18,7 +19,7 @@ html {
 
 .brand-logo {
     width: 150px;
-    padding-left: 100px;
+    padding-left: 0px;
 }
 
 .site-navigation {
@@ -204,7 +205,7 @@ p {
 
 .project-card:hover {
     transform: translateY(-5px);
-    border-color: var(--color-border); /* Efek garis tepi menyala saat kursor mendekat */
+    border-color: var(--color-secondary);
 }
 
 .card-image {
@@ -276,12 +277,13 @@ p {
 }
 
 .card-content p {
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 0.9rem;
     line-height: 1.5;
     margin-bottom: 20px;
     flex-grow: 1;
 }
+
 
 /* Tombol Link dalam Card */
 .card-btn {
