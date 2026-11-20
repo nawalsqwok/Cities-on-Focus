@@ -1,6 +1,6 @@
 :root {
     --color-primary: rgb(255, 132, 0);          /* Warna oranye utama */
-    --color-text-muted: rgba(0, 0, 0, 0.659);                /* Warna teks abu-abu redup */
+    --color-text-muted: rgba(0, 0, 0, 0.566);                /* Warna teks abu-abu redup */
     --color-border: rgba(244, 143, 65, 0.588);   /* Warna border tipis */
     --color-secondary:  rgba(0, 0, 0, 0.773);
 }
@@ -37,7 +37,7 @@ html {
 }
 
 .nav-link {
-    color: var(--color-text-muted);
+    color: #fffdfd ;
     transition: color 0.2s ease;
     text-decoration: none;
 }
