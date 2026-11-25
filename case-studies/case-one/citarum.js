@@ -1,7 +1,7 @@
 import {Map} from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-export function initCitarumMap(containerId = 'map') {
+export function citarumMap(containerId = 'map') {
     const map = new Map({
         container: containerId,
         center: [107.6, -6.9],
@@ -29,7 +29,7 @@ export function initCitarumMap(containerId = 'map') {
     return map;
 }
 
-initCitarumMap('map');
+citarumMap('map');
 
 // Menunggu seluruh elemen HTML pada halaman Citarum siap
 // document.addEventListener("DOMContentLoaded", () => {
