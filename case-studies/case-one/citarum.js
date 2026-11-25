@@ -17,26 +17,27 @@ const GEOJSON_BANJIR_URL = '../../data/banjir_citarum_2026_timeseries.geojson'
 export function citarumMap(containerId = 'map') {
     const map = new Map({
         container: containerId,
-        center: [107.6, -6.9],
-        zoom: 9,
+        // Koordinat fallback sebelum GeoJSON DAS selesai dimuat
+        center: [107.45, -6.65],
+        zoom: 8.3,
         style: {
             version: 8,
             sources: {
-              osm: {
-                type: 'raster',
-                tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-                tileSize: 256,
-                attribution: '© OpenStreetMap contributors'
-              }
+                osm: {
+                    type: 'raster',
+                    tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                    tileSize: 256,
+                    attribution: '© OpenStreetMap contributors'
+                }
             },
             layers: [
-              {
-                id: 'osm-layer',
-                type: 'raster',
-                source: 'osm'
-              }
+                {
+                    id: 'osm-layer',
+                    type: 'raster',
+                    source: 'osm'
+                }
             ]
-          }
+        }
     });
 
     map.addControl(new NavigationControl({ visualizePitch: true }), 'bottom-right');
@@ -49,19 +50,54 @@ export function citarumMap(containerId = 'map') {
     const statPoligonEl = document.getElementById('stat-poligon');
     const statLuasEl = document.getElementById('stat-luas');
 
+    // Mengumpulkan seluruh koordinat GeoJSON (Polygon / MultiPolygon) ke dalam LngLatBounds
+    function extendBoundsFromCoords(coords, bounds) {
+        if (!Array.isArray(coords)) return;
+        if (typeof coords[0] === 'number' && typeof coords[1] === 'number') {
+            bounds.extend([coords[0], coords[1]]);
+            return;
+        }
+        coords.forEach((item) => extendBoundsFromCoords(item, bounds));
+    }
+
+    // Fokuskan kamera peta tepat ke poligon batas DAS Citarum
+    function fitBoundsToDas(geojson) {
+        const bounds = new maplibregl.LngLatBounds();
+        const features = geojson.type === 'FeatureCollection'
+            ? geojson.features || []
+            : [geojson];
+
+        features.forEach((feat) => {
+            if (feat && feat.geometry && feat.geometry.coordinates) {
+                extendBoundsFromCoords(feat.geometry.coordinates, bounds);
+            }
+        });
+
+        if (!bounds.isEmpty()) {
+            const isMobile = window.innerWidth <= 900;
+            map.fitBounds(bounds, {
+                // Memberi ruang ekstra di kiri & kanan agar DAS tidak tertutup panel melayang
+                padding: isMobile
+                    ? { top: 220, bottom: 24, left: 24, right: 24 }
+                    : { top: 32, bottom: 32, left: 345, right: 275 },
+                duration: 0 // Langsung fokus tanpa animasi lambat saat awal dibuka
+            });
+        }
+    }
+
     function updateSummary(periodeDipilih) {
         if (!dataBanjirRaw) return;
-    
+
         const fiturTersaring = (dataBanjirRaw.features || []).filter((feat) => {
             const periode = feat.properties && feat.properties.periode;
             return periode === periodeDipilih;
         });
-    
+
         const totalHa = fiturTersaring.reduce((acc, feat) => {
             const luas = Number(feat.properties && feat.properties.luas_ha) || 0;
             return acc + luas;
         }, 0);
-    
+
         if (statPoligonEl) {
             statPoligonEl.textContent = String(fiturTersaring.length);
         }
@@ -69,14 +105,14 @@ export function citarumMap(containerId = 'map') {
             statLuasEl.textContent = `${totalHa.toFixed(2)} ha`;
         }
     }
-    
+
     function applyPeriodeFilter(periodeDipilih) {
         if (!map.getLayer('banjir-fill')) return;
-    
+
         const filterExpr = ['==', ['get', 'periode'], periodeDipilih];
         map.setFilter('banjir-fill', filterExpr);
         map.setFilter('banjir-outline', filterExpr);
-    
+
         updateSummary(periodeDipilih);
     }
 
@@ -98,109 +134,114 @@ export function citarumMap(containerId = 'map') {
     }
 
     map.on('load', async () => {
-       // 1. Muat & tampilkan batas DAS Citarum
-       try {
-        const resDas = await fetch(GEOJSON_DAS_URL);
-        if (!resDas.ok) throw new Error('Gagal memuat batas_das_citarum.geojson');
-        const dasGeojson = await resDas.json();
-
-        map.addSource('das-citarum', {
-            type: 'geojson',
-            data: dasGeojson
-        });
-
-        map.addLayer({
-            id: 'das-citarum-fill',
-            type: 'fill',
-            source: 'das-citarum',
-            paint: {
-                'fill-color': '#222222',
-                'fill-opacity': 0.04
+        // 1. Muat batas DAS Citarum & langsung fokuskan kamera ke poligonnya
+        try {
+            const resDas = await fetch(GEOJSON_DAS_URL);
+            if (!resDas.ok) {
+                throw new Error(`Gagal memuat ${GEOJSON_DAS_URL} (status ${resDas.status})`);
             }
-        });
+            const dasGeojson = await resDas.json();
 
-        map.addLayer({
-            id: 'das-citarum-line',
-            type: 'line',
-            source: 'das-citarum',
-            paint: {
-                'line-color': '#222222',
-                'line-width': 2
-            }
-        });
-    } catch (err) {
-        console.error(err);
-    }
+            map.addSource('das-citarum', {
+                type: 'geojson',
+                data: dasGeojson
+            });
 
-    // 2. Muat & tampilkan data banjir time series 2026
-    try {
-        const resBanjir = await fetch(GEOJSON_BANJIR_URL);
-        if (!resBanjir.ok) throw new Error('Gagal memuat banjir_citarum_2026_timeseries.geojson');
-        dataBanjirRaw = await resBanjir.json();
+            map.addLayer({
+                id: 'das-citarum-fill',
+                type: 'fill',
+                source: 'das-citarum',
+                paint: {
+                    'fill-color': '#222222',
+                    'fill-opacity': 0.04
+                }
+            });
 
-        map.addSource('banjir-citarum', {
-            type: 'geojson',
-            data: dataBanjirRaw
-        });
+            map.addLayer({
+                id: 'das-citarum-line',
+                type: 'line',
+                source: 'das-citarum',
+                paint: {
+                    'line-color': '#222222',
+                    'line-width': 2
+                }
+            });
 
-        map.addLayer({
-            id: 'banjir-fill',
-            type: 'fill',
-            source: 'banjir-citarum',
-            paint: {
-                'fill-color': '#0066ff',
-                'fill-opacity': 0.55
-            }
-        });
-
-        map.addLayer({
-            id: 'banjir-outline',
-            type: 'line',
-            source: 'banjir-citarum',
-            paint: {
-                'line-color': '#003db8',
-                'line-width': 1
-            }
-        });
-
-        // Popup saat poligon banjir diklik
-
-        map.on('click', 'banjir-fill', (e) => {
-            const feature = e.features && e.features[0];
-            if (!feature) return;
-
-            const props = feature.properties || {};
-            const luasFmt = Number(props.luas_ha || 0).toFixed(2);
-
-            new Popup()
-                .setLngLat(e.lngLat)
-                .setHTML(
-                    `<strong>Periode:</strong> ${props.periode || '-'}<br>` +
-                    `<strong>Estimasi Luas:</strong> ${luasFmt} ha`
-                )
-                .addTo(map);
-        });
-
-        map.on('mouseenter', 'banjir-fill', () => {
-            map.getCanvas().style.cursor = 'pointer';
-        });
-
-        map.on('mouseleave', 'banjir-fill', () => {
-            map.getCanvas().style.cursor = '';
-        });
-
-        const initialPeriode = filterEl ? filterEl.value : '2026-11';
-        applyPeriodeFilter(initialPeriode);
-        
-    } catch (err) {
-        console.error(err);
-        if (infoEl) {
-            infoEl.textContent = 'Gagal memuat data GeoJSON banjir. Periksa path file & server lokal.';
+            // Langsung zoom & posisikan ke seluruh area poligon DAS Citarum
+            fitBoundsToDas(dasGeojson);
+        } catch (err) {
+            console.error(err);
         }
-    }
-});
 
-if (filterEl) {
+        // 2. Muat & tampilkan data banjir time series 2026
+        try {
+            const resBanjir = await fetch(GEOJSON_BANJIR_URL);
+            if (!resBanjir.ok) {
+                throw new Error(`Gagal memuat ${GEOJSON_BANJIR_URL} (status ${resBanjir.status})`);
+            }
+            dataBanjirRaw = await resBanjir.json();
+
+            map.addSource('banjir-citarum', {
+                type: 'geojson',
+                data: dataBanjirRaw
+            });
+
+            map.addLayer({
+                id: 'banjir-fill',
+                type: 'fill',
+                source: 'banjir-citarum',
+                paint: {
+                    'fill-color': '#0066ff',
+                    'fill-opacity': 0.55
+                }
+            });
+
+            map.addLayer({
+                id: 'banjir-outline',
+                type: 'line',
+                source: 'banjir-citarum',
+                paint: {
+                    'line-color': '#003db8',
+                    'line-width': 1
+                }
+            });
+
+            // Popup saat poligon banjir diklik
+            map.on('click', 'banjir-fill', (e) => {
+                const feature = e.features && e.features[0];
+                if (!feature) return;
+
+                const props = feature.properties || {};
+                const luasFmt = Number(props.luas_ha || 0).toFixed(2);
+
+                new Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(
+                        `<strong>Periode:</strong> ${props.periode || '-'}<br>` +
+                        `<strong>Estimasi Luas:</strong> ${luasFmt} ha`
+                    )
+                    .addTo(map);
+            });
+
+            map.on('mouseenter', 'banjir-fill', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            map.on('mouseleave', 'banjir-fill', () => {
+                map.getCanvas().style.cursor = '';
+            });
+
+            const initialPeriode = filterEl ? filterEl.value : '2026-11';
+            applyPeriodeFilter(initialPeriode);
+            syncLayerVisibility();
+        } catch (err) {
+            console.error(err);
+            if (statPoligonEl) statPoligonEl.textContent = '0';
+            if (statLuasEl) statLuasEl.textContent = 'Gagal load';
+        }
+    });
+
+    if (filterEl) {
         filterEl.addEventListener('change', (e) => {
             applyPeriodeFilter(e.target.value);
         });
@@ -214,7 +255,7 @@ if (filterEl) {
         toggleDasEl.addEventListener('change', syncLayerVisibility);
     }
 
-return map;
+    return map;
 }
 
 citarumMap('map');
