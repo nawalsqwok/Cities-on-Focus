@@ -1,3 +1,5 @@
+
+
 // Menunggu seluruh elemen HTML pada halaman Citarum siap
 document.addEventListener("DOMContentLoaded", () => {
     // Mengambil elemen-elemen utama di citarum.html
