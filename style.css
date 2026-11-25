@@ -305,27 +305,3 @@ p {
     font-size: 0.9rem;
     cursor: not-allowed;
 }
-
-.title-map,
-.desc-map {
-    color: #fffdfd;
-    font-size: medium;
-    padding-top: 20px;
-    padding-left: 100px;
-    padding-right: 100px;
-}
-
-.map {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px 0;
-}
-
-.map iframe {
-    width: 80%;
-    height: 600px;
-    border: none;
-    display: block;
-}
