@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kajian Spasial Sempadan Sungai Citarum</title>
+    <title>Kajian Spasial DAS Citarum</title>
 
+    <link rel="stylesheet" href="/../citarum.css">
     <link rel="stylesheet" href="/../style.css">
     <style>
         #map {
@@ -37,11 +38,80 @@
         </nav>
     </header>
 
-    <main>
-        <h1 class="title-map">Kajian Spasial Kawasan Banjir Daerah Aliran Sungai Citarum</h1>
-        <h2 class="desc-map">Deskripsi Studi Kasus Pertama</h2>
+    <main class="case-page-main">
+        <section class="webgis-workspace" aria-label="Peta Interaktif Banjir DAS Citarum">
+            <div id="map"></div>
 
-        <div id="map"></div>
+            <!-- panel kiri melayang -->
+            <aside class="floating-panel-left">
+                <div class="panel-eyebrow">Studi Kasus • Sentinel-1 SAR</div>
+                <h1 class="panel-title title-map">Sebaran Banjir DAS Citarum</h1>
+                <p class="panel-desc desc-map">
+                    Pemetaan bulanan genangan banjir (nilai minimum komposit) periode Januari–November 2026.
+                </p>
+        
+                <div class="control-group">
+                    <label for="filter-periode" class="control-label">Pilih Bulan Periode</label>
+                    <select id="filter-periode" class="control-select">
+                <option value="2026-01">Januari 2026</option>
+                <option value="2026-02">Februari 2026</option>
+                <option value="2026-03">Maret 2026</option>
+                <option value="2026-04">April 2026</option>
+                <option value="2026-05">Mei 2026</option>
+                <option value="2026-06">Juni 2026</option>
+                <option value="2026-07">Juli 2026</option>
+                <option value="2026-08">Agustus 2026</option>
+                <option value="2026-09">September 2026</option>
+                <option value="2026-10">Oktober 2026</option>
+                <option value="2026-11">November 2026</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <span class="control-label">Layer Peta</span>
+                    <label class="layer-toggle">
+                        <input type="checkbox" id="toggle-banjir" checked>
+                        <span>Area Genangan Banjir</span>
+                    </label>
+                    <label class="layer-toggle">
+                        <input type="checkbox" id="toggle-das" checked>
+                        <span>Batas DAS Citarum</span>
+                    </label>
+                </div>
+
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">Jumlah Poligon</span>
+                        <span id="stat-poligon" class="stat-value">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Estimasi Luas</span>
+                        <span id="stat-luas" class="stat-value">- ha</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Keterangan / Legenda Kanan Melayang -->
+            <aside class="floating-legend-right">
+                <h2 class="legend-heading">Keterangan</h2>
+                <div class="legend-item">
+                    <span class="swatch-flood"></span>
+                    <span>Genangan Banjir (&gt; 0,2 ha)</span>
+                </div>
+                <div class="legend-item">
+                    <span class="swatch-das"></span>
+                    <span>Batas DAS Citarum</span>
+                </div>
+                <p class="legend-note">
+                    Komposit minimum bulanan Sentinel-1 VH dibanding acuan kering Jul–Sep 2025 (air permanen &amp; lereng &ge; 8° disaring).
+                </p>
+            </aside>
+
+                <!-- Status Pill Bawah Tengah -->
+                <div id="info-luas-banjir" class="floating-status-pill">
+                    Memuat data spasial DAS Citarum...
+                </div>
+        </section>
     </main>
 </body>
 </html>
