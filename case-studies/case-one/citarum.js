@@ -1,6 +1,7 @@
 import {
     Map,
     Popup,
+    NavigationControl,
     setWorkerUrl,
 } from 'maplibre-gl';
 
@@ -41,11 +42,15 @@ export function citarumMap(containerId = 'map') {
     map.addControl(new NavigationControl({ visualizePitch: true }), 'bottom-right');
 
     let dataBanjirRaw = null;
-    const infoEl = document.getElementById('info-luas-banjir');
+
     const filterEl = document.getElementById('filter-periode');
+    const toggleBanjirEl = document.getElementById('toggle-banjir');
+    const toggleDasEl = document.getElementById('toggle-das');
+    const statPoligonEl = document.getElementById('stat-poligon');
+    const statLuasEl = document.getElementById('stat-luas');
 
     function updateSummary(periodeDipilih) {
-        if (!dataBanjirRaw || !infoEl) return;
+        if (!dataBanjirRaw) return;
     
         const fiturTersaring = (dataBanjirRaw.features || []).filter((feat) => {
             const periode = feat.properties && feat.properties.periode;
@@ -57,9 +62,12 @@ export function citarumMap(containerId = 'map') {
             return acc + luas;
         }, 0);
     
-        infoEl.innerHTML =
-            `Bulan <strong>${periodeDipilih}</strong>: <strong>${fiturTersaring.length}</strong> poligon | ` +
-            `Total luas: <strong>${totalHa.toFixed(2)} ha</strong>`;
+        if (statPoligonEl) {
+            statPoligonEl.textContent = String(fiturTersaring.length);
+        }
+        if (statLuasEl) {
+            statLuasEl.textContent = `${totalHa.toFixed(2)} ha`;
+        }
     }
     
     function applyPeriodeFilter(periodeDipilih) {
@@ -70,6 +78,23 @@ export function citarumMap(containerId = 'map') {
         map.setFilter('banjir-outline', filterExpr);
     
         updateSummary(periodeDipilih);
+    }
+
+    function syncLayerVisibility() {
+        const banjirVis = toggleBanjirEl && toggleBanjirEl.checked ? 'visible' : 'none';
+        const dasVis = toggleDasEl && toggleDasEl.checked ? 'visible' : 'none';
+
+        ['banjir-fill', 'banjir-outline'].forEach((id) => {
+            if (map.getLayer(id)) {
+                map.setLayoutProperty(id, 'visibility', banjirVis);
+            }
+        });
+
+        ['das-citarum-fill', 'das-citarum-line'].forEach((id) => {
+            if (map.getLayer(id)) {
+                map.setLayoutProperty(id, 'visibility', dasVis);
+            }
+        });
     }
 
     map.on('load', async () => {
@@ -138,6 +163,8 @@ export function citarumMap(containerId = 'map') {
             }
         });
 
+        // Popup saat poligon banjir diklik
+
         map.on('click', 'banjir-fill', (e) => {
             const feature = e.features && e.features[0];
             if (!feature) return;
@@ -164,6 +191,7 @@ export function citarumMap(containerId = 'map') {
 
         const initialPeriode = filterEl ? filterEl.value : '2026-11';
         applyPeriodeFilter(initialPeriode);
+        
     } catch (err) {
         console.error(err);
         if (infoEl) {
@@ -173,10 +201,18 @@ export function citarumMap(containerId = 'map') {
 });
 
 if (filterEl) {
-    filterEl.addEventListener('change', (e) => {
-        applyPeriodeFilter(e.target.value);
-    });
-}
+        filterEl.addEventListener('change', (e) => {
+            applyPeriodeFilter(e.target.value);
+        });
+    }
+
+    if (toggleBanjirEl) {
+        toggleBanjirEl.addEventListener('change', syncLayerVisibility);
+    }
+
+    if (toggleDasEl) {
+        toggleDasEl.addEventListener('change', syncLayerVisibility);
+    }
 
 return map;
 }
