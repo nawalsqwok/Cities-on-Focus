@@ -1,0 +1,14 @@
+# Dependensi Node.js
+node_modules/
+
+# Folder hasil build (jika pakai bundler seperti Vite)
+dist/
+
+# File log & environment rahasia
+*.log
+.env
+.env.local
+
+# File sistem operasi
+.DS_Store
+Thumbs.db
