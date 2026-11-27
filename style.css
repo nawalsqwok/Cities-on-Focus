@@ -13,12 +13,13 @@ html {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgb(2, 8, 23);
+    background: rgb(252, 253, 255);
     backdrop-filter: blur(14px);
+    padding: 0%;
 }
 
 .brand-logo {
-    width: 150px;
+    width: 60px;
     padding-left: 0px;
 }
 
@@ -37,7 +38,7 @@ html {
 }
 
 .nav-link {
-    color: #fffdfd ;
+    color: #000000 ;
     transition: color 0.2s ease;
     text-decoration: none;
 }
