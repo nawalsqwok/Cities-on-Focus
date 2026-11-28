@@ -83,7 +83,7 @@ main {
     display: flex;
     justify-content: center; /* Kanan Kiri */
     align-items: flex-start; 
-    padding-top: 90px;      /* Atur jarak jarak atasnya di sini (bisa ditambah/dikurangi) */
+    padding-top: 180px;      /* Atur jarak jarak atasnya di sini (bisa ditambah/dikurangi) */
     padding-left: 80px;
     padding-right: 80px;
     padding-bottom: 160px;
