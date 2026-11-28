@@ -203,9 +203,10 @@ p {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(3, minmax(360px, 1fr));
+    gap: 10px;
     width: 100%;
+    height: 450px;
     max-width: 360px;
 }
 
