@@ -3,6 +3,25 @@
     --color-text-muted: rgba(0, 0, 0, 0.566);                /* Warna teks abu-abu redup */
     --color-border: rgba(244, 143, 65, 0.588);   /* Warna border tipis */
     --color-secondary:  rgba(0, 0, 0, 0.773);
+    --gutter-x: 16px; /* Padding kiri-kanan default HP */
+}
+
+@media (min-width: 640px) {
+    :root {
+        --gutter-x: 24px;
+    }
+}
+
+@media (min-width: 768px) {
+    :root {
+        --gutter-x: 32px;
+    }
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --gutter-x: 100px;
+    }
 }
 
 html {
@@ -15,7 +34,6 @@ html {
     z-index: 1000;
     background: rgb(252, 253, 255);
     backdrop-filter: blur(14px);
-    padding: 0.15%;
 }
 
 .brand-link {
@@ -31,7 +49,7 @@ html {
 
 .brand-title {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    /* Sesuaikan dengan font utama websitemu */
-    font-size: 1 rem;          /* Ukuran teks (sekitar 24px), ubah sesuai selera */
+    font-size: 1.25 rem;          /* Ukuran teks (sekitar 24px), ubah sesuai selera */
     font-weight: 900;           /* Tebal (Bold) */
     letter-spacing: -0.02em;
     color: #000000;             /* Warna hitam untuk "Cities on" */
@@ -43,15 +61,17 @@ html {
 
 .site-navigation {
     display: flex;
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 16px;
     justify-content: space-between; /* Membuat jarak di antara logo (kiri) dan menu (kanan) */
     align-items: center;          /* Menjajarkan logo dan menu agar sejajar secara vertikal di tengah */
-    padding: 6px 100px;
+    padding: 10px var(--gutter-x);
 }
 
 .navigation-links {
     display: flex;
-    gap: 20px; /* Jarak antar menu (About, Case Studies, Contact) */
+    flex-wrap: wrap;
+    gap: 14px; /* Jarak antar menu (About, Case Studies, Contact) */
     align-items: center;
 }
 
@@ -76,6 +96,7 @@ body {
 
 main {
     width: 100%;
+    overflow-x: clip;
 }
 
 .hero-section {
@@ -83,10 +104,7 @@ main {
     display: flex;
     justify-content: center; /* Kanan Kiri */
     align-items: flex-start; 
-    padding-top: 180px;      /* Atur jarak jarak atasnya di sini (bisa ditambah/dikurangi) */
-    padding-left: 80px;
-    padding-right: 80px;
-    padding-bottom: 160px;
+    padding: 96px var(--gutter-x) 120px;
     position: relative;
     background: 
         linear-gradient(rgba(255, 255, 255, 0), rgba(240, 241, 246, 0.75)), 
@@ -107,6 +125,14 @@ main {
     /* Gradasi dari transparan ke warna putih solid (#ffffff) */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #ffffff);
     pointer-events: none; /* Agar tidak mengganggu kursor saat klik tombol */
+}
+
+@media (min-width: 768px) {
+    .hero-section {
+        padding-top: 160px;
+        padding-bottom: 160px;
+        background-attachment: fixed;
+    }
 }
 
 .hero-content {
@@ -196,23 +222,35 @@ p {
     scroll-margin-top: 60px;
     background-color: #ffffff; /* Warna background polos gelap untuk section ini */
     display: flex;
-    padding: 0 100px;
+    padding: 24px var(--gutter-x) 48px;
     flex-direction: column;
     align-items: baseline;
 }
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
     gap: 10px;
-    height: 450px;
-    max-width: 360px;
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+}
+
+@media (min-width: 640px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .projects-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 20px;
+    }
 }
 
 .project-card {
     background-color: #ffffff;
-    padding: 0px;
-    margin-bottom: 20px;
     border-radius: 16px;
     overflow: hidden;
     border: 0.5px solid rgba(0, 0, 0, 0.286);
@@ -254,7 +292,7 @@ p {
 
 /* Konten Teks di dalam Card */
 .card-content {
-    padding: 10px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
